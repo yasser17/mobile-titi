@@ -19,7 +19,7 @@ export const Button = styled.TouchableOpacity`
     width: 45%;
     height: 120px;
     border-radius: 15px;
-    background-color: red;
+    background-color: #11698e;
     overflow: hidden;
 
 `;

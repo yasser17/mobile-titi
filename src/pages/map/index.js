@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import * as Location from 'expo-location';
 
-import { Container, Map } from './styles';
+import { Add, Container, Map } from './styles';
 import { StatusBar } from 'react-native';
 import { useState } from 'react';
 
@@ -39,6 +39,7 @@ const map = () => {
         <Container>
             <StatusBar />
 
+            <Add />
             <Map region={location} showUserLocation onRegionChange={onRegionChange} />
         </Container>
     );
