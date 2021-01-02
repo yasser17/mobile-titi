@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import * as Location from 'expo-location';
 
-import { Container, Map } from './styles';
+import { Add, Container, Map } from './styles';
 import { StatusBar } from 'react-native';
 import { useState } from 'react';
+import { Plus } from '../../assets/icons';
 
 const map = () => {
     const [location, setLocation] = useState({
@@ -11,13 +12,13 @@ const map = () => {
         longitude: -57.980067,
         latitudeDelta: 0.0443,
         longitudeDelta: 0.0434,
-    })
+    });
 
     useEffect(() => {
         async function getLocation() {
-            let {status} = await Location.requestPermissionsAsync();
-            
-            if(status !== 'granted') return;
+            let { status } = await Location.requestPermissionsAsync();
+
+            if (status !== 'granted') return;
 
             let location = await Location.getCurrentPositionAsync();
             setLocation({
@@ -25,21 +26,26 @@ const map = () => {
                 longitude: location.coords.longitude,
                 latitudeDelta: 0.0143,
                 longitudeDelta: 0.0134,
-            })
+            });
         }
 
         getLocation();
-    }, [])
+    }, []);
 
-    function onRegionChange() {
-
-    }
+    function onRegionChange() {}
 
     return (
         <Container>
             <StatusBar />
 
-            <Map region={location} showUserLocation onRegionChange={onRegionChange} />
+            <Map
+                region={location}
+                showsUserLocation={true}
+                onRegionChange={onRegionChange}
+            />
+            <Add>
+                <Plus />
+            </Add>
         </Container>
     );
 };
