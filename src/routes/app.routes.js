@@ -4,6 +4,7 @@ import { Image } from 'react-native';
 
 import Home from '../pages/home';
 import Map from '../pages/map';
+import Request from '../pages/request'
 
 const Stack = createStackNavigator();
 
@@ -12,6 +13,7 @@ const AppRoutes = () => {
         <Stack.Navigator>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Map" component={Map} />
+            <Stack.Screen name="BussinesRequest" component={Request} />
         </Stack.Navigator>
     );
 };

@@ -19,13 +19,22 @@ import {
     Input,
     ForgotLink,
     ForgotLabel,
+    Background,
+    Form,
+    Titi,
+    LoginButton,
+    LoginButtonText,
+    RegisterForm,
+    RegisterText,
+    RegisterLabel,
+    RegisterLink
 } from './styles';
 
 const login = ({ navigation }) => {
     const { signIn } = useAuth();
     const { getError, hasError, updateErrors } = useErrors();
 
-    const [user, setUser] = useState('yasser.mussa@gmail.com');
+    const [user, setUser] = useState('');
     const [password, setPassword] = useState('secret');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -49,54 +58,73 @@ const login = ({ navigation }) => {
             enabled={Platform.OS === 'ios'}
             behavior="padding">
             <Container>
-                <LogoContainer>
-                    <Logo
-                        source={require('../../assets/logo-final.png')}
-                        resizeMode="contain"
-                    />
-                </LogoContainer>
-                <FormContainer>
-                    <ScrollForm>
-                        <Input
-                            placeholder="Email"
-                            autoCapitalize="none"
-                            keyboardType="email-address"
-                            autoCorrect={false}
-                            onChangeText={setUser}
-                            value={user}
+                <Background
+                    source={require('../../assets/bg-login.png')}
+                    resizeMode="cover">
+                    <LogoContainer>
+                        <Logo
+                            source={require('../../assets/logo.png')}
+                            resizeMode="contain"
                         />
-                        <ErrorMessage active={hasError('email')}>
-                            {getError('email', 'correo electrónico')}
-                        </ErrorMessage>
+                    </LogoContainer>
+                    <FormContainer>
+                        <ScrollForm>
+                            <Form>
+                                <Titi
+                                    source={require('../../assets/titipoint.png')}
+                                    resizeMode="contain"
+                                />
+                                <Input
+                                    placeholder="Email"
+                                    autoCapitalize="none"
+                                    keyboardType="email-address"
+                                    autoCorrect={false}
+                                    onChangeText={setUser}
+                                    value={user}
+                                />
+                                <ErrorMessage active={hasError('email')}>
+                                    {getError('email', 'correo electrónico')}
+                                </ErrorMessage>
 
-                        <Input
-                            placeholder="Contraseña"
-                            secureTextEntry
-                            onChangeText={setPassword}
-                            value={password}
-                        />
+                                <Input
+                                    placeholder="Contraseña"
+                                    secureTextEntry
+                                    onChangeText={setPassword}
+                                    value={password}
+                                />
 
-                        <PrimaryButton
-                            onPress={() => storeLogin()}
-                            disabled={isLoading}>
-                            {isLoading ? (
-                                <ActivityIndicator color="#fff" />
-                            ) : (
-                                <PrimaryButtonText>Entrar</PrimaryButtonText>
-                            )}
-                        </PrimaryButton>
+                                <LoginButton
+                                    onPress={() => storeLogin()}
+                                    disabled={isLoading}>
+                                    {isLoading ? (
+                                        <ActivityIndicator color="#fff" />
+                                    ) : (
+                                        <LoginButtonText>
+                                            Iniciar Sesión
+                                        </LoginButtonText>
+                                    )}
+                                </LoginButton>
+                            </Form>
 
-                        <ForgotLink
-                            onPress={() => navigation.navigate('Register')}>
-                            <ForgotLabel>Registrarme</ForgotLabel>
-                        </ForgotLink>
+                            <ForgotLink
+                                onPress={() => navigation.navigate('Register')}>
+                                <ForgotLabel>
+                                    ¿Olvidaste tu contraseña?
+                                </ForgotLabel>
+                            </ForgotLink>
 
-                        <ForgotLink
-                            onPress={() => navigation.navigate('Register')}>
-                            <ForgotLabel>¿Olvidaste tu contraseña?</ForgotLabel>
-                        </ForgotLink>
-                    </ScrollForm>
-                </FormContainer>
+                            <RegisterForm>
+                                <RegisterText>¿No tienes cuenta?</RegisterText>
+                                <RegisterLink
+                                    onPress={() =>
+                                        navigation.navigate('Register')
+                                    }>
+                                    <RegisterLabel>Registrarme</RegisterLabel>
+                                </RegisterLink>
+                            </RegisterForm>
+                        </ScrollForm>
+                    </FormContainer>
+                </Background>
             </Container>
         </KeyboardAvoidingView>
     );

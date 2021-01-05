@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native';
 import { useState } from 'react';
 import { Plus } from '../../assets/icons';
 
-const map = () => {
+const map = ({ navigation }) => {
     const [location, setLocation] = useState({
         latitude: -31.3665606,
         longitude: -57.980067,
@@ -43,7 +43,7 @@ const map = () => {
                 showsUserLocation={true}
                 onRegionChange={onRegionChange}
             />
-            <Add>
+            <Add onPress={() => navigation.navigate('BussinesRequest')}>
                 <Plus />
             </Add>
         </Container>
