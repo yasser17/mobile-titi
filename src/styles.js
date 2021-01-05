@@ -12,21 +12,24 @@ export const ErrorMessage = styled.Text`
     color: #e23545;
 `;
 
+
 export const PrimaryButton = styled.TouchableOpacity`
-    margin-top: 30px;
-    background-color: #3d9be5;
-    align-self: center;
-    padding: 8px 15px;
-    border-radius: 16px;
-    width: 60%;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px 10px;
+    text-align: center;
+    background-color: #f7c033;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+    elevation: 5;
+    margin-bottom: 15px;
 `;
 
 export const PrimaryButtonText = styled.Text`
     font-size: 18px;
     font-weight: bold;
-    text-transform: uppercase;
-    text-align: center;
     color: #fff;
+    text-align: center;
 `;
 
 export const Input = styled.TextInput.attrs({

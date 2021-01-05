@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, StatusBar, View, Text } from 'react-native';
+import Modal from 'react-native-modal';
 
 import { useAuth } from '../../context/auth';
 import { useErrors } from '../../context/errors';
@@ -27,16 +28,19 @@ import {
     RegisterForm,
     RegisterText,
     RegisterLabel,
-    RegisterLink
+    RegisterLink,
 } from './styles';
+
+import ForgotModal from '../../components/ForgotModal'
 
 const login = ({ navigation }) => {
     const { signIn } = useAuth();
     const { getError, hasError, updateErrors } = useErrors();
 
-    const [user, setUser] = useState('');
+    const [user, setUser] = useState('yasser.mussa@gmail.com');
     const [password, setPassword] = useState('secret');
     const [isLoading, setIsLoading] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     async function storeLogin() {
         setIsLoading(true);
@@ -58,6 +62,15 @@ const login = ({ navigation }) => {
             enabled={Platform.OS === 'ios'}
             behavior="padding">
             <Container>
+                <ForgotModal
+                    isVisible={isModalVisible}
+                    onSwipeComplete={() => setIsModalVisible(false)}
+                    swipeDirection="down" />
+                <StatusBar
+                    barStyle="dark-content"
+                    translucent
+                    backgroundColor="transparent"
+                />
                 <Background
                     source={require('../../assets/bg-login.png')}
                     resizeMode="cover">
@@ -107,7 +120,7 @@ const login = ({ navigation }) => {
                             </Form>
 
                             <ForgotLink
-                                onPress={() => navigation.navigate('Register')}>
+                                onPress={() => setIsModalVisible(true)}>
                                 <ForgotLabel>
                                     ¿Olvidaste tu contraseña?
                                 </ForgotLabel>

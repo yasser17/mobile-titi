@@ -6,7 +6,6 @@ import { useErrors } from '../../context/errors';
 import api from '../../service/api';
 import {
     ErrorMessage,
-    Input,
     PrimaryButton,
     PrimaryButtonText,
     ActivityIndicator,
@@ -15,9 +14,10 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     Container,
-    LogoContainer,
     Logo,
     FormContainer,
+    Background,
+    Input
 } from './styles';
 
 const register = () => {
@@ -52,67 +52,64 @@ const register = () => {
             enabled={Platform.OS === 'ios'}
             behavior="padding">
             <Container>
-                <StatusBar
-                    barStyle="dark-content"
-                    translucent
-                    backgroundColor="transparent"
-                />
-                <LogoContainer>
-                    <Logo
-                        source={require('../../assets/logo-final.png')}
-                        resizeMode="contain"
+                <Background source={require('../../assets/bg-login.png')} resizeMode="cover">
+                    <StatusBar
+                        barStyle="dark-content"
+                        translucent
+                        backgroundColor="transparent"
                     />
-                </LogoContainer>
-                <FormContainer>
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <Input
-                            placeholder="Nombre"
-                            autoCorrect={false}
-                            onChangeText={setName}
-                        />
-                        <ErrorMessage active={hasError('name')}>
-                            {getError('name', 'nombre')}
-                        </ErrorMessage>
+                    <FormContainer>
+                        <Logo source={require('../../assets/logo-titi-point.png')} resizeMode="contain" />
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <Input
+                                placeholder="Nombre"
+                                autoCorrect={false}
+                                onChangeText={setName}
+                            />
+                            <ErrorMessage active={hasError('name')}>
+                                {getError('name', 'nombre')}
+                            </ErrorMessage>
 
-                        <Input
-                            placeholder="Email"
-                            keyboardType="email-address"
-                            autoCapitalize="none"
-                            autoCorrect={false}
-                            onChangeText={setEmail}
-                        />
-                        <ErrorMessage active={hasError('email')}>
-                            {getError('email', 'email')}
-                        </ErrorMessage>
+                            <Input
+                                placeholder="Email"
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                onChangeText={setEmail}
+                            />
+                            <ErrorMessage active={hasError('email')}>
+                                {getError('email', 'email')}
+                            </ErrorMessage>
 
-                        <Input
-                            placeholder="Contraseña"
-                            secureTextEntry
-                            onChangeText={setPassword}
-                        />
-                        <ErrorMessage active={hasError('name')}>
-                            {getError('password', 'contraseña')}
-                        </ErrorMessage>
+                            <Input
+                                placeholder="Contraseña"
+                                secureTextEntry
+                                onChangeText={setPassword}
+                            />
+                            <ErrorMessage active={hasError('name')}>
+                                {getError('password', 'contraseña')}
+                            </ErrorMessage>
 
-                        <Input
-                            placeholder="Repita Contraseña"
-                            secureTextEntry
-                            onChangeText={setPasswordConfirmation}
-                        />
+                            <Input
+                                placeholder="Repita Contraseña"
+                                secureTextEntry
+                                onChangeText={setPasswordConfirmation}
+                            />
 
-                        <PrimaryButton
-                            onPress={() => storeRegister()}
-                            disabled={isLoading}>
-                            {isLoading ? (
-                                <ActivityIndicator color="#fff" />
-                            ) : (
-                                <PrimaryButtonText>
-                                    Registrarme
-                                </PrimaryButtonText>
-                            )}
-                        </PrimaryButton>
-                    </ScrollView>
-                </FormContainer>
+                            <PrimaryButton
+                                onPress={() => storeRegister()}
+                                disabled={isLoading}>
+                                {isLoading ? (
+                                    <ActivityIndicator color="#fff" />
+                                ) : (
+                                    <PrimaryButtonText>
+                                        Registrarme
+                                    </PrimaryButtonText>
+                                )}
+                            </PrimaryButton>
+                        </ScrollView>
+                    </FormContainer>
+                </Background>
             </Container>
         </KeyboardAvoidingView>
     );
