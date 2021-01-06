@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+export const KeyboardAvoidingView = styled.KeyboardAvoidingView`
+    flex: 1;
+`;
+
 export const Container = styled.View`
     flex: 1;
 `;
@@ -16,18 +20,42 @@ export const Row = styled.View`
 `;
 
 export const Button = styled.TouchableOpacity`
-    width: 45%;
+    width: 90%;
     height: 120px;
     border-radius: 15px;
-    background-color: #11698e;
     overflow: hidden;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+    elevation: 5;
+`;
 
+export const TextContainer = styled.View`
+    width: 60%;
+    padding-top: 20px;
+    padding-left: 10px;
+`;
+
+export const ImageContainer = styled.View`
+    width: 40%;
+    align-self: flex-end;
+`;
+
+export const ButtonTitle = styled.Text`
+    font-size: 24px;
+    color: #fff;
+    font-weight: bold;
 `;
 
 export const ButtonText = styled.Text`
-    font-size: 18px;
+    font-size: 12px;
     color: #fff;
     font-weight: bold;
+`;
+
+export const ButtonImage = styled.Image`
+    width: 100%;
 `;
 
 export const ImageBackground = styled.ImageBackground`
