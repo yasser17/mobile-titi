@@ -24,9 +24,12 @@ const home = ({ navigation }) => {
         <KeyboardAvoidingView
             enabled={Platform.OS === 'ios'}
             behavior="padding">
-            <Container>
-                <StatusBar barStyle="light-content" backgroundColor="#052E64" />
-                <ScrollHorizontal showsVerticalScrollIndicator={false}>
+            <ScrollHorizontal showsVerticalScrollIndicator={false}>
+                <Container>
+                    <StatusBar
+                        barStyle="light-content"
+                        backgroundColor="#052E64"
+                    />
                     <Row>
                         <Button
                             onPress={() => navigation.navigate('Map')}
@@ -127,8 +130,8 @@ const home = ({ navigation }) => {
                             <LinkText>Salir</LinkText>
                         </Link>
                     </Row>
-                </ScrollHorizontal>
-            </Container>
+                </Container>
+            </ScrollHorizontal>
         </KeyboardAvoidingView>
     );
 };

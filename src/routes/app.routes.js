@@ -17,13 +17,21 @@ const AppRoutes = () => {
                 headerStyle: {
                     backgroundColor: '#052E64',
                 },
+                headerTitleContainerStyle: {
+                    alignSelf: 'flex-start',
+                    alignItems: 'center'
+                },
                 headerTitle: (
                     <Image
                         source={require('../assets/titi-logo.png')}
                         resizeMode="contain"
-                        style={{ width: 200 }}
+                        style={{ width: 150 }}
                     />
                 ),
+                headerRightContainerStyle: {
+                    alignItems: 'center',
+                    color: '#fff'
+                },
                 headerRight: () => (
                     <TouchableOpacity style={{ marginRight: 10 }}>
                         <Menu />

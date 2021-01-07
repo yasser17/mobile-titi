@@ -8,7 +8,7 @@ export const Container = styled.View`
     flex: 1;
 `;
 
-export const ScrollHorizontal = styled.View`
+export const ScrollHorizontal = styled.ScrollView`
     flex: 1;
 `;
 
