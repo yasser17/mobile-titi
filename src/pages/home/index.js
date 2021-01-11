@@ -18,8 +18,7 @@ import {
 } from './styles';
 
 const home = ({ navigation }) => {
-    const { signOut } = useAuth();
-
+    
     return (
         <KeyboardAvoidingView
             enabled={Platform.OS === 'ios'}
@@ -100,7 +99,7 @@ const home = ({ navigation }) => {
                             </TextContainer>
                             <ImageContainer>
                                 <ButtonImage
-                                    source={require('../../assets/tiendas.png')}
+                                    source={require('../../assets/tienda.png')}
                                     resizeMode="contain"
                                 />
                             </ImageContainer>
@@ -124,11 +123,6 @@ const home = ({ navigation }) => {
                                 />
                             </ImageContainer>
                         </Button>
-                    </Row>
-                    <Row>
-                        <Link onPress={() => signOut()}>
-                            <LinkText>Salir</LinkText>
-                        </Link>
                     </Row>
                 </Container>
             </ScrollHorizontal>

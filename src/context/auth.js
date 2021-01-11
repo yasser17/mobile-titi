@@ -8,6 +8,7 @@ const AuthContext = createContext({});
 export const AuthProvider = (props) => {
     const [user, setUser] = useState(null);
     const [authLoading, setAuthLoading] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     useEffect(() => {
         async function loadStorageData() {
@@ -30,6 +31,10 @@ export const AuthProvider = (props) => {
 
         loadStorageData();
     }, []);
+
+    function toggleModal() {
+        setIsModalVisible(!isModalVisible);
+    }
 
     async function signIn(userData) {
         try {
@@ -85,6 +90,8 @@ export const AuthProvider = (props) => {
                 signOut,
                 signInSocialMedia,
                 updateUserData,
+                isModalVisible,
+                toggleModal
             }}>
             {props.children}
         </AuthContext.Provider>

@@ -1,15 +1,18 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Image, TouchableOpacity } from 'react-native';
+import { Image, TouchableOpacity, Platform } from 'react-native';
 
 import Home from '../pages/home';
 import Map from '../pages/map';
-import Request from '../pages/request';
+import InfoStep from '../pages/request/InfoStep';
+import LocationStep from '../pages/request/LocationStep';
 import { Menu } from '../assets/icons';
+import { useAuth } from '../context/auth';
 
 const Stack = createStackNavigator();
 
 const AppRoutes = () => {
+    const { toggleModal } = useAuth();
     return (
         <Stack.Navigator
             screenOptions={{
@@ -18,8 +21,8 @@ const AppRoutes = () => {
                     backgroundColor: '#052E64',
                 },
                 headerTitleContainerStyle: {
-                    alignSelf: 'flex-start',
-                    alignItems: 'center'
+                    alignSelf: Platform.OS === 'ios' ? 'center' : 'flex-start',
+                    alignItems: 'center',
                 },
                 headerTitle: (
                     <Image
@@ -30,17 +33,20 @@ const AppRoutes = () => {
                 ),
                 headerRightContainerStyle: {
                     alignItems: 'center',
-                    color: '#fff'
+                    color: '#fff',
                 },
                 headerRight: () => (
-                    <TouchableOpacity style={{ marginRight: 10 }}>
+                    <TouchableOpacity
+                        style={{ marginRight: 10 }}
+                        onPress={() => toggleModal()}>
                         <Menu />
                     </TouchableOpacity>
-                )
+                ),
             }}>
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Map" component={Map} />
-            <Stack.Screen name="BussinesRequest" component={Request} />
+            <Stack.Screen name="BussinesRequest" component={InfoStep} />
+            <Stack.Screen name="BussinesRequestLocation" component={LocationStep} />
         </Stack.Navigator>
     );
 };
