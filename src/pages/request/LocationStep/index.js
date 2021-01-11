@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { Container, Map, GoogleAutoComplete } from './styles';
 
-import {Marker} from 'react-native-maps';
+import { Marker } from 'react-native-maps';
+
+import bussines from '../../../assets/markers/bussiness.png';
+import {GOOGLEAPIKEY} from '../../../../env.js'
 
 const LocationStep = () => {
     const [location, setLocation] = useState({
@@ -30,32 +33,31 @@ const LocationStep = () => {
         // getLocation();
     }, []);
 
-    function handleGetLocation(data, {geometry}) {
+    function handleGetLocation(data, { geometry }) {
         const marker = {
             latitude: geometry.location.lat,
             longitude: geometry.location.lng,
         };
-        setMarkets([
-            marker
-        ])
+        setMarkets([marker]);
         setLocation({
             ...marker,
             latitudeDelta: 0.0143,
             longitudeDelta: 0.0134,
-        })
-    }  
+        });
+    }
 
     return (
         <Container>
-            <Map region={location} showsUserLocation={true} />
-            {
-                markets.map((marker, index) => (
-                    <Marker 
-                    key={index}
-                    coordinate={marker}
-                     />
-                ))
-            }
+            <Map region={location} showsUserLocation={true}>
+                {markets.map((marker, index) => (
+                    <Marker
+                        key={index}
+                        coordinate={marker}
+                        anchor={{ x: 0, y: 0 }}
+                        image={bussines}
+                    />
+                ))}
+            </Map>
 
             <GoogleAutoComplete
                 placeholder="Busque su dirección"
@@ -63,7 +65,7 @@ const LocationStep = () => {
                 enablePoweredByContainer={false}
                 onPress={handleGetLocation}
                 query={{
-                    key: 'AIzaSyCjBHG-vi7p8gg6S1554Yu83TqmDtckE6o',
+                    key: GOOGLEAPIKEY,
                     language: 'es',
                 }}
                 styles={{
