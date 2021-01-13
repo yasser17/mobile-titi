@@ -1,10 +1,22 @@
 import React, { useEffect } from 'react';
 import * as Location from 'expo-location';
 
-import { Add, Container, Map } from './styles';
+import {
+    Add,
+    CategoriesContainer,
+    CategoriesScroll,
+    CategoryButton,
+    CategoryImage,
+    CategoryText,
+    Container,
+    Map,
+    SearchButton,
+    SearchContainer,
+    SearchInput,
+} from './styles';
 import { StatusBar } from 'react-native';
 import { useState } from 'react';
-import { Plus } from '../../assets/icons';
+import { Plus, SearchIcon } from '../../assets/icons';
 
 const map = ({ navigation }) => {
     const [location, setLocation] = useState({
@@ -43,6 +55,62 @@ const map = ({ navigation }) => {
                 showsUserLocation={true}
                 onRegionChange={onRegionChange}
             />
+            <SearchContainer>
+                <SearchInput />
+                <SearchButton onPress={() => {}}>
+                    <SearchIcon />
+                </SearchButton>
+                <CategoriesContainer>
+                    <CategoriesScroll horizontal={true} showsHorizontalScrollIndicator={false}>
+                        <CategoryButton>
+                            <CategoryImage
+                                source={require('../../assets/cat-icons/ropa.png')}
+                                resizeMode="contain"
+                            />
+                            <CategoryText>Tiendas</CategoryText>
+                        </CategoryButton>
+
+                        <CategoryButton>
+                            <CategoryImage
+                                source={require('../../assets/cat-icons/Hotel.png')}
+                                resizeMode="contain"
+                            />
+                            <CategoryText>Hotel</CategoryText>
+                        </CategoryButton>
+
+                        <CategoryButton>
+                            <CategoryImage
+                                source={require('../../assets/cat-icons/cine.png')}
+                                resizeMode="contain"
+                            />
+                            <CategoryText>Cines</CategoryText>
+                        </CategoryButton>
+
+                        <CategoryButton>
+                            <CategoryImage
+                                source={require('../../assets/cat-icons/farmacia.png')}
+                                resizeMode="contain"
+                            />
+                            <CategoryText>Farmacias</CategoryText>
+                        </CategoryButton>
+                        <CategoryButton>
+                            <CategoryImage
+                                source={require('../../assets/cat-icons/restaurantes.png')}
+                                resizeMode="contain"
+                            />
+                            <CategoryText>Restaurantes</CategoryText>
+                        </CategoryButton>
+                        <CategoryButton>
+                            <CategoryImage
+                                source={require('../../assets/cat-icons/herramientas.png')}
+                                resizeMode="contain"
+                            />
+                            <CategoryText>Talleres</CategoryText>
+                        </CategoryButton>
+                    </CategoriesScroll>
+                </CategoriesContainer>
+            </SearchContainer>
+
             <Add onPress={() => navigation.navigate('BussinesRequest')}>
                 <Plus />
             </Add>
