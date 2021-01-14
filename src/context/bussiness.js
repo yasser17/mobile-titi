@@ -12,7 +12,7 @@ export const BussinesProvider = (props) => {
     });
 
     function updateBussiness(data) {
-        setBussiness(data);
+        setBussiness({ ...bussiness, ...data });
     }
 
     function clear() {
@@ -29,7 +29,7 @@ export const BussinesProvider = (props) => {
         <BussinessContext.Provider value={{ bussiness, updateBussiness }}>
             {props.children}
         </BussinessContext.Provider>
-    )
+    );
 };
 
 export function useBussiness() {

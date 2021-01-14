@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Platform, StyleSheet } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 import { useErrors } from '../../../context/errors';
 
@@ -20,14 +21,50 @@ import {
     PrimaryButtonText,
 } from '../../../styles';
 import { useBussiness } from '../../../context/bussiness';
+import api from '../../../service/api';
 
 const request = ({ navigation }) => {
-    const { hasError, getError } = useErrors();
-    const { updateBussiness } = useBussiness();
+    const { hasError, getError, updateErrors } = useErrors();
+    const { updateBussiness, bussiness } = useBussiness();
+    const [categoryId, setCategoryId] = useState(0);
+    const [name, setName] = useState('');
+    const [details, setDetails] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        async function getCategories() {
+            const { data: cats } = await api.get('/company-categories');
+            setCategories(cats);
+        }
+
+        setCategoryId(bussiness.company_category_id);
+        setName(bussiness.name);
+        setDetails(bussiness.details);
+        setEmail(bussiness.email);
+        setPhone(bussiness.phone);
+
+        getCategories();
+    }, []);
 
     function handleToRedirectToMap() {
-        navigation.navigate('BussinesRequestLocation')
-    } 
+        if (name === '') {
+            updateErrors([
+                { field: 'name', message: 'El campo nombre es obligatorio' },
+            ]);
+            return;
+        }
+
+        updateBussiness({
+            name,
+            company_category_id: categoryId,
+            details,
+            email,
+            phone,
+        });
+        navigation.navigate('BussinesRequestLocation');
+    }
 
     return (
         <KeyboardAvoidingView
@@ -45,22 +82,53 @@ const request = ({ navigation }) => {
                             TitiPoint
                         </Text>
 
-                        <Input placeholder="Nombre del Negocio" />
+                        <Picker
+                            style={styles.select}
+                            selectedValue={categoryId}
+                            onValueChange={(itemValue) =>
+                                setCategoryId(itemValue)
+                            }>
+                            {categories.map((category) => (
+                                <Picker.Item
+                                    key={category.id}
+                                    label={category.name}
+                                    value={category.id}
+                                />
+                            ))}
+
+                            <Picker.Item label="Item2" value="item2" />
+                        </Picker>
                         <ErrorMessage active={hasError('name')}>
-                            {getError('name', 'nombre')}
+                            {getError('company_category_id', 'categoria')}
                         </ErrorMessage>
 
                         <Input
-                            placeholder="Escriba una descipción corta de sus negocio..."
-                            multiline={true}
-                            numberOfLines={5}
+                            value={name}
+                            onChangeText={setName}
+                            placeholder="Nombre del Negocio"
                         />
                         <ErrorMessage active={hasError('name')}>
                             {getError('name', 'nombre')}
                         </ErrorMessage>
 
                         <Input
+                            value={details}
+                            onChangeText={setDetails}
+                            placeholder="Escriba una descipción corta de sus negocio..."
+                            multiline={true}
+                            numberOfLines={5}
+                        />
+                        <ErrorMessage active={hasError('name')}>
+                            {getError('details', 'descripción')}
+                        </ErrorMessage>
+
+                        <Input
                             placeholder="Email"
+                            autoCapitalize="none"
+                            keyboardType="email-address"
+                            autoCorrect={false}
+                            value={email}
+                            onChangeText={setEmail}
                         />
                         <ErrorMessage active={hasError('email')}>
                             {getError('email', 'email')}
@@ -68,12 +136,15 @@ const request = ({ navigation }) => {
 
                         <Input
                             placeholder="Teléfono"
+                            keyboardType="phone-pad"
+                            value={phone}
+                            onChangeText={setPhone}
                         />
                         <ErrorMessage active={hasError('phone')}>
                             {getError('phone', 'teléfono')}
                         </ErrorMessage>
 
-                        <PrimaryButton onPress={() => handleToRedirectToMap() }>
+                        <PrimaryButton onPress={() => handleToRedirectToMap()}>
                             <PrimaryButtonText>Siguiente</PrimaryButtonText>
                         </PrimaryButton>
                     </FormContanier>
@@ -82,5 +153,19 @@ const request = ({ navigation }) => {
         </KeyboardAvoidingView>
     );
 };
+
+const styles = StyleSheet.create({
+    select: {
+        fontSize: 16,
+        paddingTop: 8,
+        paddingBottom: 8,
+        paddingRight: 20,
+        paddingLeft: 20,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#3d9be5',
+        marginTop: 30,
+    },
+});
 
 export default request;

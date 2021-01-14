@@ -61,6 +61,7 @@ const login = ({ navigation }) => {
         <KeyboardAvoidingView
             enabled={Platform.OS === 'ios'}
             behavior="padding">
+            
             <Container>
                 <ForgotModal
                     isVisible={isModalVisible}
