@@ -1,13 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import * as Location from 'expo-location';
+import Toast from 'react-native-toast-message';
 
-import { Container, Map, GoogleAutoComplete } from './styles';
+import {
+    Container,
+    Map,
+    GoogleAutoComplete,
+    Button,
+    ButtonText,
+} from './styles';
 
 import { Marker } from 'react-native-maps';
 
-import bussines from '../../../assets/markers/bussiness.png';
-import {GOOGLEAPIKEY} from '../../../../env.js'
+import bussinesMarker from '../../../assets/markers/bussiness.png';
+import { GOOGLEAPIKEY } from '../../../../env.js';
+import { useBussiness } from '../../../context/bussiness';
+import { ActivityIndicator } from 'react-native';
+import api from '../../../service/api';
 
-const LocationStep = () => {
+const LocationStep = ({ navigation }) => {
+    const { bussiness, updateBussiness, clear } = useBussiness();
+
     const [location, setLocation] = useState({
         latitude: -31.3665606,
         longitude: -57.980067,
@@ -15,35 +28,64 @@ const LocationStep = () => {
         longitudeDelta: 0.0434,
     });
     const [markets, setMarkets] = useState([]);
+    const [ready, setReady] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        // async function getLocation() {
-        //     let { status } = await Location.requestPermissionsAsync();
-        //     if (status !== 'granted') return;
-        //     try {
-        //         let location = await Location.getCurrentPositionAsync();
-        //         setLocation({
-        //             latitude: location.coords.latitude,
-        //             longitude: location.coords.longitude,
-        //             latitudeDelta: 0.0143,
-        //             longitudeDelta: 0.0134,
-        //         });
-        //     } catch (error) {}
-        // }
-        // getLocation();
+        async function getLocation() {
+            let { status } = await Location.requestPermissionsAsync();
+            if (status !== 'granted') return;
+            try {
+                let location = await Location.getCurrentPositionAsync();
+                setLocation({
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.0143,
+                    longitudeDelta: 0.0134,
+                });
+            } catch (error) {}
+        }
+        getLocation();
     }, []);
 
     function handleGetLocation(data, { geometry }) {
-        const marker = {
-            latitude: geometry.location.lat,
-            longitude: geometry.location.lng,
-        };
-        setMarkets([marker]);
-        setLocation({
-            ...marker,
-            latitudeDelta: 0.0143,
-            longitudeDelta: 0.0134,
-        });
+        try {
+            const marker = {
+                latitude: geometry.location.lat,
+                longitude: geometry.location.lng,
+            };
+            setMarkets([marker]);
+            setLocation({
+                ...marker,
+                latitudeDelta: 0.0143,
+                longitudeDelta: 0.0134,
+            });
+            updateBussiness({
+                latitude: geometry.location.lat,
+                longitude: geometry.location.lng,
+                place_id: data.place_id,
+                address: `${data.terms[0].value} ${data.terms[1].value}`,
+                city: data.terms[2].value,
+                country: data.terms[4].value,
+            });
+            setReady(true);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    function handleStore() {
+        setIsLoading(true);
+        api.post('/bussiness', bussiness)
+            .then(() => {
+                Toast.show({
+                    text1: 'Empresa registrada!',
+                    text2: 'Gracias por registrar su empresa',
+                });
+                navigation.navigate('Home')
+            })
+            .catch(({ response }) => console.log(response.data))
+            .finally(() => setIsLoading(false));
     }
 
     return (
@@ -54,7 +96,7 @@ const LocationStep = () => {
                         key={index}
                         coordinate={marker}
                         anchor={{ x: 0, y: 0 }}
-                        image={bussines}
+                        image={bussinesMarker}
                     />
                 ))}
             </Map>
@@ -77,6 +119,14 @@ const LocationStep = () => {
                     },
                 }}
             />
+
+            <Button disabled={!ready} onPress={() => handleStore()}>
+                {isLoading ? (
+                    <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                    <ButtonText>Registrar</ButtonText>
+                )}
+            </Button>
         </Container>
     );
 };

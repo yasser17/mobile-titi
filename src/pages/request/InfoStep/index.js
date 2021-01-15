@@ -95,8 +95,6 @@ const request = ({ navigation }) => {
                                     value={category.id}
                                 />
                             ))}
-
-                            <Picker.Item label="Item2" value="item2" />
                         </Picker>
                         <ErrorMessage active={hasError('name')}>
                             {getError('company_category_id', 'categoria')}

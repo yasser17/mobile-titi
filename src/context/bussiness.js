@@ -9,6 +9,9 @@ export const BussinesProvider = (props) => {
         email: '',
         phone: '',
         category_id: '',
+        address: '',
+        city: '',
+        country: ''
     });
 
     function updateBussiness(data) {
@@ -26,7 +29,7 @@ export const BussinesProvider = (props) => {
     }
 
     return (
-        <BussinessContext.Provider value={{ bussiness, updateBussiness }}>
+        <BussinessContext.Provider value={{ bussiness, updateBussiness, clear }}>
             {props.children}
         </BussinessContext.Provider>
     );
