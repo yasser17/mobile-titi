@@ -89,3 +89,92 @@ export const SearchIcon = (props) => {
         </Svg>
     );
 };
+
+export const HomeIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 48 48"
+            width={props.size}
+            height={props.size}
+            {...props}>
+            <G
+                className="prefix__nc-icon-wrapper"
+                strokeLinecap="square"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                strokeMiterlimit={10}>
+                <Path
+                    data-cap="butt"
+                    strokeLinecap="butt"
+                    d="M8 18.5V44h12V34h8v10h12V18.5"
+                />
+                <Path
+                    data-cap="butt"
+                    data-color="color-2"
+                    strokeLinecap="butt"
+                    d="M8 18V6h6v7.1"
+                />
+                <Path data-color="color-2" d="M20 18h8v8h-8z" />
+                <Path
+                    data-cap="butt"
+                    data-color="color-2"
+                    strokeLinecap="butt"
+                    d="M2 24L24 4l22 20"
+                />
+            </G>
+        </Svg>
+    );
+};
+
+export const MessageIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 48 48"
+            width={props.size}
+            height={props.size}
+            {...props}>
+            <G
+                className="prefix__nc-icon-wrapper"
+                strokeLinecap="square"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                strokeMiterlimit={10}>
+                <Path
+                    data-cap="butt"
+                    data-color="color-2"
+                    strokeLinecap="butt"
+                    d="M37.999 10H46v26h-8v8l-12-8h-5"
+                />
+                <Path d="M38 2H2v26h8v10l14-10h14z" />
+            </G>
+        </Svg>
+    );
+};
+
+export const MoreIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-more-horizontal"
+            {...props}>
+            <G
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                className="prefix__nc-icon-wrapper">
+                <Circle cx={12} cy={12} r={1} />
+                <Circle cx={19} cy={12} r={1} />
+                <Circle cx={5} cy={12} r={1} />
+            </G>
+        </Svg>
+    );
+};

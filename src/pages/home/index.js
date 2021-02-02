@@ -50,7 +50,7 @@ const home = ({ navigation }) => {
                     </Row>
                     <Row>
                         <Button
-                            onPress={() => navigation.navigate('Map')}
+                            onPress={() => navigation.navigate('CompanyScreen')}
                             style={{ backgroundColor: '#0070c0' }}>
                             <TextContainer>
                                 <ButtonTitle>Titi Amigos</ButtonTitle>

@@ -53,6 +53,7 @@ export const AuthProvider = (props) => {
 
             await AsyncStorage.setItem('@Titi:token', response.token);
         } catch (err) {
+            console.log(err);   
             return err.response.data;
         }
     }

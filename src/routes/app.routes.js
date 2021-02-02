@@ -6,6 +6,9 @@ import Home from '../pages/home';
 import Map from '../pages/map';
 import InfoStep from '../pages/request/InfoStep';
 import LocationStep from '../pages/request/LocationStep';
+import CompanyScreen from './company.routes';
+
+
 import { Menu } from '../assets/icons';
 import { useAuth } from '../context/auth';
 
@@ -47,6 +50,7 @@ const AppRoutes = () => {
             <Stack.Screen name="Map" component={Map} />
             <Stack.Screen name="BussinesRequest" component={InfoStep} />
             <Stack.Screen name="BussinesRequestLocation" component={LocationStep} />
+            <Stack.Screen name="CompanyScreen" component={CompanyScreen} />
         </Stack.Navigator>
     );
 };
