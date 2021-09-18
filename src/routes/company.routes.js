@@ -1,10 +1,32 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 
 import HomeScreen from '../pages/company/HomeScreen';
 import MessagesScreen from '../pages/company/MessagesScreen';
+import ShoppingScreen from '../pages/company/ShoppingScreen';
+import PublicationScreen from '../pages/company/PublicationScreen';
+import SettingsScreen from '../pages/company/SettingsScreen';
+import ChatScreen from '../pages/company/ChatScreen';
 
-import {HomeIcon, MessageIcon} from '../assets/icons'
+import {
+    HomeIcon,
+    MessageIcon,
+    SettingsIcon,
+    BagIcon,
+    PlusIcon,
+} from '../assets/icons';
+
+const Stack = createStackNavigator();
+
+const MessagesRoutes = () => {
+    return (
+        <Stack.Navigator headerMode="none">
+            <Stack.Screen name="MessagesStack" component={MessagesScreen} />
+            <Stack.Screen name="ChatScreen" component={ChatScreen} />
+        </Stack.Navigator>
+    );
+};
 
 const Tab = createBottomTabNavigator();
 
@@ -20,16 +42,28 @@ const CompanyRoutes = () => {
                 tabBarIcon: ({ focused, color, size }) => {
                     switch (route.name) {
                         case 'HomeScreen':
-                            return <HomeIcon size={size} color={color}/>;
+                            return <HomeIcon size={size} color={color} />;
                         case 'MessageScreen':
                             return <MessageIcon size={size} color={color} />;
+                        case 'ShoppingScreen':
+                            return <BagIcon size={size} color={color} />;
+                        case 'SettingsScreen':
+                            return <SettingsIcon size={size} color={color} />;
+                        case 'PublicationScreen':
+                            return <PlusIcon size={size} color={color} />;
                         default:
                             return <HomeIcon size={24} />;
                     }
                 },
             })}>
             <Tab.Screen name="HomeScreen" component={HomeScreen} />
-            <Tab.Screen name="MessageScreen" component={MessagesScreen} />
+            <Tab.Screen name="ShoppingScreen" component={ShoppingScreen} />
+            <Tab.Screen
+                name="PublicationScreen"
+                component={PublicationScreen}
+            />
+            <Tab.Screen name="SettingsScreen" component={SettingsScreen} />
+            <Tab.Screen name="MessageScreen" component={MessagesRoutes} />
         </Tab.Navigator>
     );
 };

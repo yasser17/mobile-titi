@@ -1,5 +1,5 @@
 import React from 'react';
-import Svg, { Path, G, Circle } from 'react-native-svg';
+import Svg, { Path, G, Circle, Rect } from 'react-native-svg';
 
 export const Plus = (props) => {
     return (
@@ -94,35 +94,20 @@ export const HomeIcon = (props) => {
     return (
         <Svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 48 48"
             width={props.size}
             height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-home"
             {...props}>
             <G
-                className="prefix__nc-icon-wrapper"
-                strokeLinecap="square"
+                strokeLinejoin="round"
+                strokeLinecap="round"
                 strokeWidth={2}
                 fill="none"
                 stroke={props.color}
-                strokeMiterlimit={10}>
-                <Path
-                    data-cap="butt"
-                    strokeLinecap="butt"
-                    d="M8 18.5V44h12V34h8v10h12V18.5"
-                />
-                <Path
-                    data-cap="butt"
-                    data-color="color-2"
-                    strokeLinecap="butt"
-                    d="M8 18V6h6v7.1"
-                />
-                <Path data-color="color-2" d="M20 18h8v8h-8z" />
-                <Path
-                    data-cap="butt"
-                    data-color="color-2"
-                    strokeLinecap="butt"
-                    d="M2 24L24 4l22 20"
-                />
+                className="prefix__nc-icon-wrapper">
+                <Path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                <Path d="M9 22V12h6v10" />
             </G>
         </Svg>
     );
@@ -132,25 +117,19 @@ export const MessageIcon = (props) => {
     return (
         <Svg
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 48 48"
             width={props.size}
             height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-message-circle"
             {...props}>
-            <G
-                className="prefix__nc-icon-wrapper"
-                strokeLinecap="square"
+            <Path
+                d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"
+                strokeLinejoin="round"
+                strokeLinecap="round"
                 strokeWidth={2}
                 fill="none"
                 stroke={props.color}
-                strokeMiterlimit={10}>
-                <Path
-                    data-cap="butt"
-                    data-color="color-2"
-                    strokeLinecap="butt"
-                    d="M37.999 10H46v26h-8v8l-12-8h-5"
-                />
-                <Path d="M38 2H2v26h8v10l14-10h14z" />
-            </G>
+            />
         </Svg>
     );
 };
@@ -174,6 +153,144 @@ export const MoreIcon = (props) => {
                 <Circle cx={12} cy={12} r={1} />
                 <Circle cx={19} cy={12} r={1} />
                 <Circle cx={5} cy={12} r={1} />
+            </G>
+        </Svg>
+    );
+};
+
+export const BagIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-shopping-bag"
+            {...props}>
+            <G
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                className="prefix__nc-icon-wrapper">
+                <Path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0" />
+            </G>
+        </Svg>
+    );
+};
+
+export const SettingsIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-settings"
+            {...props}>
+            <G
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                className="prefix__nc-icon-wrapper">
+                <Circle cx={12} cy={12} r={3} />
+                <Path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+            </G>
+        </Svg>
+    );
+};
+
+export const PlusIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-plus-circle"
+            {...props}>
+            <G
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                className="prefix__nc-icon-wrapper">
+                <Circle cx={12} cy={12} r={10} />
+                <Path d="M12 8v8M8 12h8" />
+            </G>
+        </Svg>
+    );
+};
+
+export const RefreshIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-refresh-ccw"
+            {...props}>
+            <G
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                className="prefix__nc-icon-wrapper">
+                <Path d="M1 4v6h6M23 20v-6h-6" />
+                <Path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15" />
+            </G>
+        </Svg>
+    );
+};
+
+export const CamaraIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-camera"
+            {...props}>
+            <G
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                className="prefix__nc-icon-wrapper">
+                <Path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
+                <Circle cx={12} cy={13} r={4} />
+            </G>
+        </Svg>
+    );
+};
+
+export const ImageIcon = (props) => {
+    return (
+        <Svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={props.size}
+            height={props.size}
+            viewBox="0 0 24 24"
+            className="prefix__feather prefix__feather-image"
+            {...props}>
+            <G
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeWidth={2}
+                fill="none"
+                stroke={props.color}
+                className="prefix__nc-icon-wrapper">
+                <Rect x={3} y={3} width={18} height={18} rx={2} ry={2} />
+                <Circle cx={8.5} cy={8.5} r={1.5} />
+                <Path d="M21 15l-5-5L5 21" />
             </G>
         </Svg>
     );

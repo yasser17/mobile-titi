@@ -35,8 +35,12 @@ const request = ({ navigation }) => {
 
     useEffect(() => {
         async function getCategories() {
-            const { data: cats } = await api.get('/company-categories');
-            setCategories(cats);
+            try {
+                const { data: cats } = await api.get('/company-categories');
+                setCategories(cats);
+            } catch ({ response }) {
+                console.log(response);
+            }
         }
 
         setCategoryId(bussiness.company_category_id);

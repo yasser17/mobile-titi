@@ -1,9 +1,10 @@
-import React from 'react';
+import styled from 'styled-components/native';
 
-// import { Container } from './styles';
+export const Container = styled.View`
+    flex: 1;
+    justify-content: center;
+`;
 
-const MessagesScreen = () => {
-  return <View />;
-}
-
-export default MessagesScreen;
+export const ScrollContainer = styled.ScrollView`
+    flex: 1;
+`;
