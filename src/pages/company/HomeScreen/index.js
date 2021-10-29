@@ -6,6 +6,7 @@ import {
     ScrollView,
     CoverImage,
     ProfileImage,
+    ProfileImageFile,
     CompanyName,
     InfoContainer,
     CompanyDescription,
@@ -17,10 +18,12 @@ const HomeScreen = () => {
             <ScrollView showsHorizontalScrollIndicator={false}>
                 <CoverImage
                     source={require('../../../assets/cover_company.png')}>
-                    <ProfileImage
-                        source={require('../../../assets/profile-picture.png')}
-                        resizeMode="contain"
-                    />
+                    <ProfileImage onPress={() => console.log('entro')}>
+                        <ProfileImageFile
+                            source={require('../../../assets/profile-picture.png')}
+                            resizeMode="contain"
+                        />
+                    </ProfileImage>
                 </CoverImage>
 
                 <InfoContainer>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 import Toast from 'react-native-toast-message';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 import {
     Container,
@@ -101,7 +102,29 @@ const LocationStep = ({ navigation }) => {
                 ))}
             </Map>
 
-            <GoogleAutoComplete
+            <GooglePlacesAutocomplete 
+                placeholder="Busque la Dirección"
+                fetchDetails
+                enableHighAccuracyLocation={true}
+                enablePoweredByContainer={false}
+                onPress={handleGetLocation}
+                onFail={(error) => console.error(error)}
+                query={{
+                    key: GOOGLEAPIKEY,
+                    language: 'es'
+                }}
+                styles={{ 
+                    container: {
+                        position: 'absolute',
+                        width: '90%',
+                        top: 10,
+                        alignSelf: 'center'
+                    }
+                }}
+            
+            />
+
+            {/* <GoogleAutoComplete
                 placeholder="Busque su dirección"
                 fetchDetails
                 enablePoweredByContainer={false}
@@ -118,7 +141,7 @@ const LocationStep = ({ navigation }) => {
                         alignSelf: 'center',
                     },
                 }}
-            />
+            /> */}
 
             <Button disabled={!ready} onPress={() => handleStore()}>
                 {isLoading ? (

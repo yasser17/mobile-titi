@@ -37,10 +37,8 @@ export const AuthProvider = (props) => {
     }
 
     async function signIn(userData) {
-        try {
+        // try {
             const { data: response } = await api.post('/login', userData);
-
-            console.log(response.user);
 
             setUser(response.user);
 
@@ -49,13 +47,13 @@ export const AuthProvider = (props) => {
                 JSON.stringify(response.user),
             );
 
-            api.defaults.headers.Authorization = `Bearer ${response.token}`;
+            api.defaults.headers.Authorization = `Bearer ${response.token.token}`;
 
-            await AsyncStorage.setItem('@Titi:token', response.token);
-        } catch (err) {
-            console.log(err);   
-            return err.response.data;
-        }
+            await AsyncStorage.setItem('@Titi:token', response.token.token);
+        // } catch (err) {
+        //     console.log(err);   
+        //     return err.response.data;
+        // }
     }
 
     async function updateUserData() {

@@ -17,6 +17,9 @@ import {
 import { StatusBar } from 'react-native';
 import { useState } from 'react';
 import { Plus, SearchIcon } from '../../assets/icons';
+import api from '../../service/api';
+import bussinesMarker from '../../assets/markers/bussiness.png';
+import { Marker } from 'react-native-maps';
 
 const map = ({ navigation }) => {
     const [location, setLocation] = useState({
@@ -26,25 +29,44 @@ const map = ({ navigation }) => {
         longitudeDelta: 0.0434,
     });
 
+    const [companies, setCompanies] = useState([]);
+
+    async function getNearCompanies(lat, lng) {
+        api.get(`/near-companies?lat=${lat}&lng=${lng}`).then(({ data }) => {
+            setCompanies(data);
+            console.log(data);
+        });
+    }
+
     useEffect(() => {
         async function getLocation() {
             let { status } = await Location.requestPermissionsAsync();
 
             if (status !== 'granted') return;
 
-            let location = await Location.getCurrentPositionAsync();
+            let location = await Location.getCurrentPositionAsync({
+                accuracy: 6,
+            });
             setLocation({
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
                 latitudeDelta: 0.0143,
                 longitudeDelta: 0.0134,
             });
+            await getNearCompanies(
+                location.coords.latitude,
+                location.coords.longitude,
+            );
         }
 
         getLocation();
     }, []);
 
     function onRegionChange() {}
+
+    function navigateToCompany(company) {
+        navigation.navigate('CompanyScreen')
+    }
 
     return (
         <Container>
@@ -53,15 +75,29 @@ const map = ({ navigation }) => {
             <Map
                 region={location}
                 showsUserLocation={true}
-                onRegionChange={onRegionChange}
-            />
+                onRegionChange={onRegionChange}>
+                {companies.map((marker, index) => (
+                    <Marker
+                        key={index}
+                        coordinate={{
+                            latitude: parseFloat(marker.latitude),
+                            longitude: parseFloat(marker.longitude),
+                        }}
+                        anchor={{ x: 0, y: 0 }}
+                        image={bussinesMarker}
+                        onPress={() => navigateToCompany(marker)}
+                    />
+                ))}
+            </Map>
             <SearchContainer>
                 <SearchInput />
                 <SearchButton onPress={() => {}}>
                     <SearchIcon />
                 </SearchButton>
                 <CategoriesContainer>
-                    <CategoriesScroll horizontal={true} showsHorizontalScrollIndicator={false}>
+                    <CategoriesScroll
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}>
                         <CategoryButton>
                             <CategoryImage
                                 source={require('../../assets/cat-icons/ropa.png')}

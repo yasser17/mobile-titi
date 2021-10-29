@@ -14,13 +14,18 @@ export const CoverImage = styled.ImageBackground`
     position: relative;
 `;
 
-export const ProfileImage = styled.Image`
+export const ProfileImage = styled.TouchableOpacity`
     width: 150px;
     height: 150px;
     position: absolute;
     bottom: -75px;
     left: 10px;
 `;
+
+export const ProfileImageFile = styled.Image`
+    width: 150px;
+    height: 150px;
+`
 
 export const CompanyName = styled.Text`
     font-size: 18px;
