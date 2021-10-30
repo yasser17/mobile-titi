@@ -34,7 +34,6 @@ const map = ({ navigation }) => {
     async function getNearCompanies(lat, lng) {
         api.get(`/near-companies?lat=${lat}&lng=${lng}`).then(({ data }) => {
             setCompanies(data);
-            console.log(data);
         });
     }
 
@@ -65,7 +64,10 @@ const map = ({ navigation }) => {
     function onRegionChange() {}
 
     function navigateToCompany(company) {
-        navigation.navigate('CompanyScreen')
+        navigation.navigate('CompanyScreen', {
+            screen: 'HomeScreen',
+            params: { companyId: company.id, company },
+        });
     }
 
     return (

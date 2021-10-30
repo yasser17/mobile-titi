@@ -78,12 +78,15 @@ const LocationStep = ({ navigation }) => {
     function handleStore() {
         setIsLoading(true);
         api.post('/bussiness', bussiness)
-            .then(() => {
+            .then(({ data }) => {
                 Toast.show({
                     text1: 'Empresa registrada!',
                     text2: 'Gracias por registrar su empresa',
                 });
-                navigation.navigate('Home')
+                navigation.navigate('CompanyScreen', {
+                    screen: 'HomeScreen',
+                    params: { companyId: data.id, company: data },
+                });
             })
             .catch(({ response }) => console.log(response.data))
             .finally(() => setIsLoading(false));
@@ -102,7 +105,7 @@ const LocationStep = ({ navigation }) => {
                 ))}
             </Map>
 
-            <GooglePlacesAutocomplete 
+            <GooglePlacesAutocomplete
                 placeholder="Busque la Dirección"
                 fetchDetails
                 enableHighAccuracyLocation={true}
@@ -111,17 +114,16 @@ const LocationStep = ({ navigation }) => {
                 onFail={(error) => console.error(error)}
                 query={{
                     key: GOOGLEAPIKEY,
-                    language: 'es'
+                    language: 'es',
                 }}
-                styles={{ 
+                styles={{
                     container: {
                         position: 'absolute',
                         width: '90%',
                         top: 10,
-                        alignSelf: 'center'
-                    }
+                        alignSelf: 'center',
+                    },
                 }}
-            
             />
 
             {/* <GoogleAutoComplete

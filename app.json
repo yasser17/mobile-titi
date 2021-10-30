@@ -5,16 +5,6 @@
         "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
-        "expo": {
-            "plugins": [
-                [
-                    "expo-image-picker",
-                    {
-                        "photosPermission": "Necesitamos tu permiso para poder acceder a las fotos."
-                    }
-                ]
-            ]
-        },
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",

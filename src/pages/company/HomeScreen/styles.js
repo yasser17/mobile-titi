@@ -25,6 +25,7 @@ export const ProfileImage = styled.TouchableOpacity`
 export const ProfileImageFile = styled.Image`
     width: 150px;
     height: 150px;
+    border-radius: 180px;    
 `
 
 export const CompanyName = styled.Text`
