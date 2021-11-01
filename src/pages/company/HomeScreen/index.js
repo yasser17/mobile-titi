@@ -15,9 +15,9 @@ import {
     CompanyDescription,
 } from './styles';
 
-const HomeScreen = ({ route, navigation}) => {
+const HomeScreen = ({ route, navigation }) => {
     const [isEditing, setIsEditing] = useState(true);
-    let {companyId,  company } = route.params
+    let { companyId, company } = route.params;
 
     async function changeImage() {
         if (isEditing) {
@@ -52,19 +52,19 @@ const HomeScreen = ({ route, navigation}) => {
                     source={require('../../../assets/cover_company.png')}>
                     <ProfileImage onPress={() => changeImage()}>
                         <ProfileImageFile
-                            source={{ uri: company.imageUrl}}
+                            source={
+                                company.image
+                                    ? { uri: company.imageUrl }
+                                    : require('../../../assets/profile-picture.png')
+                            }
                             resizeMode="contain"
                         />
                     </ProfileImage>
                 </CoverImage>
 
                 <InfoContainer>
-                    <CompanyName>{ company?.name }</CompanyName>
-                    <CompanyDescription>
-                        {
-                            company?.details
-                        }
-                    </CompanyDescription>
+                    <CompanyName>{company?.name}</CompanyName>
+                    <CompanyDescription>{company?.details}</CompanyDescription>
                 </InfoContainer>
 
                 <Publication />
