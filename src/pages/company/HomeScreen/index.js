@@ -17,7 +17,13 @@ import {
 
 const HomeScreen = ({ route, navigation }) => {
     const [isEditing, setIsEditing] = useState(true);
+    const [comp, setComp] = useState({});
+
     let { companyId, company } = route.params;
+
+    useEffect(() => {
+        setComp(company);
+    }, [company]);
 
     async function changeImage() {
         if (isEditing) {
@@ -38,7 +44,7 @@ const HomeScreen = ({ route, navigation }) => {
 
                 api.post(`/company-image-profile/${companyId}`, form)
                     .then(({ data }) => {
-                        company = data;
+                        setComp(data);
                     })
                     .catch(({ response }) => console.log(response));
             }
@@ -53,8 +59,8 @@ const HomeScreen = ({ route, navigation }) => {
                     <ProfileImage onPress={() => changeImage()}>
                         <ProfileImageFile
                             source={
-                                company.image
-                                    ? { uri: company.imageUrl }
+                                comp.image
+                                    ? { uri: comp.imageUrl }
                                     : require('../../../assets/profile-picture.png')
                             }
                             resizeMode="contain"
@@ -63,8 +69,8 @@ const HomeScreen = ({ route, navigation }) => {
                 </CoverImage>
 
                 <InfoContainer>
-                    <CompanyName>{company?.name}</CompanyName>
-                    <CompanyDescription>{company?.details}</CompanyDescription>
+                    <CompanyName>{comp?.name}</CompanyName>
+                    <CompanyDescription>{comp?.details}</CompanyDescription>
                 </InfoContainer>
 
                 <Publication />
