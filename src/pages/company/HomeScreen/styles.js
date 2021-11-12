@@ -8,10 +8,16 @@ export const Container = styled.View`
     flex: 1;
 `;
 
-export const CoverImage = styled.ImageBackground`
+export const CoverImage= styled.TouchableWithoutFeedback`
     width: 100%;
     height: 180px;
     position: relative;
+`;
+
+
+export const CoverImageFile = styled.ImageBackground`
+    width: 100%;
+    height: 180px;
 `;
 
 export const ProfileImage = styled.TouchableOpacity`
@@ -25,7 +31,7 @@ export const ProfileImage = styled.TouchableOpacity`
 export const ProfileImageFile = styled.Image`
     width: 150px;
     height: 150px;
-    border-radius: 180px;    
+    border-radius: 180px;  
 `
 
 export const CompanyName = styled.Text`

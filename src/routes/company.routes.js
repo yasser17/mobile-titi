@@ -5,7 +5,8 @@ import React from 'react';
 import HomeScreen from '../pages/company/HomeScreen';
 import MessagesScreen from '../pages/company/MessagesScreen';
 import ShoppingScreen from '../pages/company/ShoppingScreen';
-import PublicationScreen from '../pages/company/PublicationScreen';
+import CamaraScreen from '../pages/company/PublicationScreen/CamaraScreen';
+import DetailScreen from '../pages/company/PublicationScreen/DetailsScreen';
 import SettingsScreen from '../pages/company/SettingsScreen';
 import ChatScreen from '../pages/company/ChatScreen';
 
@@ -27,6 +28,17 @@ const MessagesRoutes = () => {
         </Stack.Navigator>
     );
 };
+
+const StackP = createStackNavigator();
+
+const PublicationRoutes = () => {
+    return (
+        <StackP.Navigator headerMode="none">
+            <StackP.Screen name="CamaraScreen" component={CamaraScreen} />
+            <StackP.Screen name="DetailScreen" component={DetailScreen} />
+        </StackP.Navigator>
+    )
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -60,7 +72,7 @@ const CompanyRoutes = () => {
             <Tab.Screen name="ShoppingScreen" component={ShoppingScreen} />
             <Tab.Screen
                 name="PublicationScreen"
-                component={PublicationScreen}
+                component={PublicationRoutes}
             />
             <Tab.Screen name="SettingsScreen" component={SettingsScreen} />
             <Tab.Screen name="MessageScreen" component={MessagesRoutes} />

@@ -13,6 +13,7 @@ import {
     CompanyName,
     InfoContainer,
     CompanyDescription,
+    CoverImageFile,
 } from './styles';
 
 const HomeScreen = ({ route, navigation }) => {
@@ -51,21 +52,53 @@ const HomeScreen = ({ route, navigation }) => {
         }
     }
 
+    async function changeCover() {
+        if (isEditing) {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                quality: 1,
+            });
+
+            if (!result.cancelled) {
+                const form = new FormData();
+
+                form.append('image', {
+                    uri: result.uri,
+                    type: `image/${result.type}`,
+                    name: path.basename(result.uri),
+                });
+                form.append('mime', `image/${result.uri.split('.').pop()}`);
+
+                api.post(`/company-image-cover/${companyId}`, form)
+                    .then(({ data }) => {
+                        setComp(data);
+                    })
+                    .catch(({ response }) => console.log(response));
+            }
+        }
+    }
+
     return (
         <Container>
             <ScrollView showsHorizontalScrollIndicator={false}>
-                <CoverImage
-                    source={require('../../../assets/cover_company.png')}>
-                    <ProfileImage onPress={() => changeImage()}>
-                        <ProfileImageFile
-                            source={
-                                comp.image
-                                    ? { uri: comp.imageUrl }
-                                    : require('../../../assets/profile-picture.png')
-                            }
-                            resizeMode="contain"
-                        />
-                    </ProfileImage>
+                <CoverImage onPress={() => changeCover()}>
+                    <CoverImageFile
+                        source={
+                            comp.coverUrl
+                                ? { uri: comp.coverUrl }
+                                : require('../../../assets/cover_company.png')
+                        }>
+                        <ProfileImage onPress={() => changeImage()}>
+                            <ProfileImageFile
+                                source={
+                                    comp.image
+                                        ? { uri: comp.imageUrl }
+                                        : require('../../../assets/profile-picture.png')
+                                }
+                                resizeMode="contain"
+                            />
+                        </ProfileImage>
+                    </CoverImageFile>
                 </CoverImage>
 
                 <InfoContainer>

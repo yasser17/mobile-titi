@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
 
 export const PublicationContainer = styled.View`
     width: 100%;
@@ -22,6 +23,5 @@ export const UserImage = styled.Image`
 export const MoreButton = styled.TouchableOpacity``;
 
 export const ImageContainer = styled.Image`
-    width: 100%;
-    height: 100%;
+    width: ${Dimensions.get('screen').width}px;
 `;

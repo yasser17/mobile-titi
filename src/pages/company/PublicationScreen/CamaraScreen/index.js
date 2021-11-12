@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, createRef } from 'react';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -13,11 +13,13 @@ import {
     TakePhotoButton,
 } from './styles';
 import { ActivityIndicator } from 'react-native';
-import { CamaraIcon, ImageIcon, RefreshIcon } from '../../../assets/icons';
+import { CamaraIcon, ImageIcon, RefreshIcon } from '../../../../assets/icons';
+import { usePublication } from '../../../../context/publication';
 
-const PublicationScreen = () => {
+const PublicationScreen = ({ navigation }) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
+    const { updatePublication } = usePublication();
 
     useEffect(() => {
         async function getPermission() {
@@ -52,27 +54,24 @@ const PublicationScreen = () => {
     }
 
     async function handleToSelectImage() {
-        const {
-            status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        const { status } =
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
 
         if (status === 'granted') {
             const photo = await ImagePicker.launchImageLibraryAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
                 aspect: [4, 3],
                 quality: 1,
             });
+
+            updatePublication({ image: photo.uri });
+            navigation.navigate('CamaraScreen');
         }
     }
 
     return (
         <Container>
-            <CameraView
-                type={type}
-                ref={(ref) => {
-                    this.camera = ref;
-                }}>
+            <CameraView type={type}>
                 <ButtonsContainer>
                     <FilesButton onPress={() => handleToSelectImage()}>
                         <ImageIcon size={42} color="#fff" />
