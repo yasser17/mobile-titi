@@ -17,9 +17,9 @@ import { CamaraIcon, ImageIcon, RefreshIcon } from '../../../../assets/icons';
 import { usePublication } from '../../../../context/publication';
 
 const PublicationScreen = ({ navigation }) => {
+    const { updatePublication } = usePublication();
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
-    const { updatePublication } = usePublication();
 
     useEffect(() => {
         async function getPermission() {
@@ -50,7 +50,6 @@ const PublicationScreen = ({ navigation }) => {
 
     async function handleTakePhoto() {
         const photo = await this.camera.takePictureAsync();
-        console.log(photo);
     }
 
     async function handleToSelectImage() {
@@ -64,8 +63,10 @@ const PublicationScreen = ({ navigation }) => {
                 quality: 1,
             });
 
-            updatePublication({ image: photo.uri });
-            navigation.navigate('CamaraScreen');
+            updatePublication({ image: photo.uri, type: photo.type });
+            navigation.navigate('PublicationScreen', {
+                screen: 'DetailScreen',
+            });
         }
     }
 

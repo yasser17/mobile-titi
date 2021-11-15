@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FlatList } from 'react-native';
 import Publication from '../../../components/Publication';
 import * as ImagePicker from 'expo-image-picker';
 import path from 'path';
@@ -15,16 +16,26 @@ import {
     CompanyDescription,
     CoverImageFile,
 } from './styles';
+import { usePublication } from '../../../context/publication';
 
 const HomeScreen = ({ route, navigation }) => {
     const [isEditing, setIsEditing] = useState(true);
     const [comp, setComp] = useState({});
+    const [feed, setFeed] = useState([]);
+    const { updatePublication } = usePublication();
 
     let { companyId, company } = route.params;
 
     useEffect(() => {
         setComp(company);
+        updatePublication({ company_id: company.id });
     }, [company]);
+
+    useEffect(() => {
+        api.get(`/publications/${company.id}`).then(({ data }) =>
+            setFeed(data.data),
+        );
+    }, []);
 
     async function changeImage() {
         if (isEditing) {
@@ -106,7 +117,13 @@ const HomeScreen = ({ route, navigation }) => {
                     <CompanyDescription>{comp?.details}</CompanyDescription>
                 </InfoContainer>
 
-                <Publication />
+                <FlatList
+                    data={feed}
+                    keyExtractor={(post) => String(post.id)}
+                    renderItem={({ item }) => (
+                        <Publication item={item} company={comp} />
+                    )}
+                />
             </ScrollView>
         </Container>
     );

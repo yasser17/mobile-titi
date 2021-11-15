@@ -18,10 +18,14 @@ export const UserImage = styled.Image`
     width: 50px;
     height: 50px;
     margin-left: 10px;
+    border-radius: 50px;
+    margin-bottom: 10px;
 `;
 
 export const MoreButton = styled.TouchableOpacity``;
 
 export const ImageContainer = styled.Image`
     width: ${Dimensions.get('screen').width}px;
+    height: ${960 * (Dimensions.get('screen').width) / 1280}px;
+    margin-bottom: 15px;
 `;
