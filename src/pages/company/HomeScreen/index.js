@@ -7,7 +7,6 @@ import api from '../../../service/api';
 
 import {
     Container,
-    ScrollView,
     CoverImage,
     ProfileImage,
     ProfileImageFile,
@@ -25,6 +24,7 @@ const HomeScreen = ({ route, navigation }) => {
     const [total, setTotal] = useState(0);
     const [comp, setComp] = useState({});
     const [feed, setFeed] = useState([]);
+    const [refreshing, setRefreshing] = useState(true);
     const { updatePublication } = usePublication();
 
     let { companyId, company } = route.params;
@@ -35,22 +35,30 @@ const HomeScreen = ({ route, navigation }) => {
     }, [company]);
 
     useEffect(() => {
-        navigation.addListener('focus', () => {
-            api.get(`/publications/${company.id}`).then(({ data }) => {
-                console.log(data);
-                setFeed(data.data);
-            });
-        });
-    }, [navigation]);
+        loadPage();
+        setRefreshing(false);
+    }, []);
+
+    // Prevent navigate to register company page
+    useEffect(() => {
+        navigation.addListener('beforeRemove', (e) => {
+            e.data.action
+        })
+    }, [navigation])
 
     async function loadPage(pageNumber = page, shouldRefresh = false) {
+        if(total && pageNumber > total) return;
+
         setLoading(true);
         const { data: pagination } = await api.get(
             `/publications/${company.id}?${pageNumber}`,
         );
 
         setFeed(pagination.data);
-        // setTotal(Math.floor(pagination.total / ))
+        setTotal(pagination.meta.last_page);
+        setFeed(shouldRefresh ? pagination.data : [...feed, ...pagination.data]);
+        setPage(pageNumber + 1);
+        setLoading(false);
     }
 
     async function changeImage() {
@@ -105,12 +113,20 @@ const HomeScreen = ({ route, navigation }) => {
         }
     }
 
+    async function refreshList() {
+        setRefreshing(true);
+        await loadPage(1, true);
+        setRefreshing(false);
+    }
+
     return (
         <Container>
             <FlatList
                 data={feed}
                 keyExtractor={(post) => String(post.id)}
                 onEndReached={() => loadPage()}
+                onRefresh={refreshList}
+                refreshing={refreshing}
                 ListHeaderComponent={
                     <>
                         <CoverImage onPress={() => changeCover()}>

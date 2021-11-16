@@ -28,7 +28,7 @@ const LocationStep = ({ navigation }) => {
         latitudeDelta: 0.0443,
         longitudeDelta: 0.0434,
     });
-    const [markets, setMarkets] = useState([]);
+    const [marker, setMarker] = useState(null);
     const [ready, setReady] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -55,7 +55,7 @@ const LocationStep = ({ navigation }) => {
                 latitude: geometry.location.lat,
                 longitude: geometry.location.lng,
             };
-            setMarkets([marker]);
+            setMarker(marker);
             setLocation({
                 ...marker,
                 latitudeDelta: 0.0143,
@@ -92,17 +92,26 @@ const LocationStep = ({ navigation }) => {
             .finally(() => setIsLoading(false));
     }
 
+    function handleChangeLocation(coord) {
+        const { latitude, longitude } = coord.nativeEvent.coordinate;
+        updateBussiness({
+            latitude,
+            longitude,
+        });
+    }
+
     return (
         <Container>
             <Map region={location} showsUserLocation={true}>
-                {markets.map((marker, index) => (
+                {marker && (
                     <Marker
-                        key={index}
                         coordinate={marker}
                         anchor={{ x: 0, y: 0 }}
                         image={bussinesMarker}
+                        draggable
+                        onDragEnd={handleChangeLocation}
                     />
-                ))}
+                )}
             </Map>
 
             <GooglePlacesAutocomplete
