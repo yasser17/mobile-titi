@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -20,6 +20,7 @@ const PublicationScreen = ({ navigation }) => {
     const { updatePublication } = usePublication();
     const [hasPermission, setHasPermission] = useState(null);
     const [type, setType] = useState(Camera.Constants.Type.back);
+    const cameraRef = useRef(null);
 
     useEffect(() => {
         async function getPermission() {
@@ -49,7 +50,11 @@ const PublicationScreen = ({ navigation }) => {
     }
 
     async function handleTakePhoto() {
-        const photo = await this.camera.takePictureAsync();
+        const photo = await cameraRef.current.takePictureAsync();
+        updatePublication({ image: photo.uri, type: 'image' });
+        navigation.navigate('PublicationScreen', {
+            screen: 'DetailScreen',
+        });
     }
 
     async function handleToSelectImage() {
@@ -72,7 +77,7 @@ const PublicationScreen = ({ navigation }) => {
 
     return (
         <Container>
-            <CameraView type={type}>
+            <CameraView type={type} ref={cameraRef}>
                 <ButtonsContainer>
                     <FilesButton onPress={() => handleToSelectImage()}>
                         <ImageIcon size={42} color="#fff" />
