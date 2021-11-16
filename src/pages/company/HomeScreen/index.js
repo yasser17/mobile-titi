@@ -22,7 +22,7 @@ const HomeScreen = ({ route, navigation }) => {
     const [isEditing, setIsEditing] = useState(true);
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState(0);
     const [comp, setComp] = useState({});
     const [feed, setFeed] = useState([]);
     const { updatePublication } = usePublication();
@@ -49,8 +49,8 @@ const HomeScreen = ({ route, navigation }) => {
             `/publications/${company.id}?${pageNumber}`,
         );
 
-        setFeed(pagination.data)
-        setTotal(Math.floor(pagination.total / ))
+        setFeed(pagination.data);
+        // setTotal(Math.floor(pagination.total / ))
     }
 
     async function changeImage() {
