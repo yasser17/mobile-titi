@@ -4,12 +4,12 @@ import { PrimaryButton, PrimaryButtonText } from '../../styles';
 
 import { Container, Modal } from './styles';
 
-const UserMenu = ({onSwipeComplete, swipeDirection }) => {
-    const {signOut, isModalVisible, toggleModal} = useAuth()
+const UserMenu = ({ onSwipeComplete, swipeDirection }) => {
+    const { signOut, isModalVisible, toggleModal } = useAuth();
 
     function log() {
         signOut();
-        onSwipeComplete();
+        toggleModal();
     }
 
     return (

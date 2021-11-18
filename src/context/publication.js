@@ -24,7 +24,7 @@ export const PublicationProvider = (props) => {
         });
     }
 
-    async function sendPost() {
+    async function sendPost(description) {
         const form = new FormData();
         const imageData = {
             uri: publication.image,
@@ -33,7 +33,7 @@ export const PublicationProvider = (props) => {
         };
 
         form.append('image', imageData);
-        form.append('description', publication.description);
+        form.append('description', description);
         form.append('company_id', publication.company_id);
 
         try {

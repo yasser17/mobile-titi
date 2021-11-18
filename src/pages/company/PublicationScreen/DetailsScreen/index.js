@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { Container, Image, Title, ScrollView } from './styles';
 import { usePublication } from '../../../../context/publication';
@@ -16,47 +17,37 @@ const DetailsScreen = ({ navigation }) => {
         setIsLoading(true);
         updatePublication({ description });
 
-        await sendPost();
+        await sendPost(description);
         setIsLoading(false);
         navigation.navigate('CompanyScreen', { screen: 'HomeScreen' });
     }
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            enabled={Platform.OS === 'ios'}
-            style={{ flex: 1 }}>
+        <KeyboardAwareScrollView style={{ flex: 1 }} extraHeight={180} enableOnAndroid>
             <Container>
                 <StatusBar
                     barStyle="light-content"
                     translucent
                     backgroundColor="transparent"
                 />
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    <Title>Complete tu Publicación</Title>
-                    <Image
-                        source={{ uri: publication.image }}
-                        resizeMode="cover"
-                    />
-                    <Input
-                        placeholder="Ingrese una descripción de la publicación"
-                        multiline={true}
-                        numberOfLines={5}
-                        onChangeText={setDescription}
-                    />
+                <Title>Complete tu Publicación</Title>
+                <Image source={{ uri: publication.image }} resizeMode="cover" />
+                <Input
+                    placeholder="Ingrese una descripción de la publicación"
+                    multiline={true}
+                    numberOfLines={5}
+                    onChangeText={setDescription}
+                />
 
-                    <LoginButton
-                        onPress={() => publicate()}
-                        disabled={isLoading}>
-                        {isLoading ? (
-                            <ActivityIndicator color="#fff" />
-                        ) : (
-                            <LoginButtonText>Publicar</LoginButtonText>
-                        )}
-                    </LoginButton>
-                </ScrollView>
+                <LoginButton onPress={() => publicate()} disabled={isLoading}>
+                    {isLoading ? (
+                        <ActivityIndicator color="#fff" />
+                    ) : (
+                        <LoginButtonText>Publicar</LoginButtonText>
+                    )}
+                </LoginButton>
             </Container>
-        </KeyboardAvoidingView>
+        </KeyboardAwareScrollView>
     );
 };
 

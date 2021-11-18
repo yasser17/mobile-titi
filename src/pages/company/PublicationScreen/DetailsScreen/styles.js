@@ -4,6 +4,8 @@ import {Dimensions} from 'react-native'
 export const Container = styled.View`
     flex: 1;
     align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
 `;
 
 export const ScrollView = styled.ScrollView`
