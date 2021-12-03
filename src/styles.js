@@ -45,4 +45,10 @@ export const Input = styled.TextInput.attrs({
     margin-top: 30px;
 `;
 
+export const Label = styled.Text`
+    margin-top: 20px;
+    color: #212529;
+    font-size: 14px;
+`;
+
 export const ActivityIndicator = styled.ActivityIndicator``;

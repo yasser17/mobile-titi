@@ -37,23 +37,25 @@ export const AuthProvider = (props) => {
     }
 
     async function signIn(userData) {
-        // try {
-            const { data: response } = await api.post('/login', userData);
+        return new Promise(async (resolve, reject) => {
+            try {
+                const { data: response } = await api.post('/login', userData);
 
-            setUser(response.user);
+                setUser(response.user);
 
-            await AsyncStorage.setItem(
-                '@Lookae:user',
-                JSON.stringify(response.user),
-            );
+                await AsyncStorage.setItem(
+                    '@Lookae:user',
+                    JSON.stringify(response.user),
+                );
 
-            api.defaults.headers.Authorization = `Bearer ${response.token.token}`;
+                api.defaults.headers.Authorization = `Bearer ${response.token.token}`;
 
-            await AsyncStorage.setItem('@Titi:token', response.token.token);
-        // } catch (err) {
-        //     console.log(err);   
-        //     return err.response.data;
-        // }
+                await AsyncStorage.setItem('@Titi:token', response.token.token);
+                resolve();
+            } catch (e) {
+                reject();
+            }
+        })
     }
 
     async function updateUserData() {

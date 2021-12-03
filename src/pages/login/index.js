@@ -31,7 +31,7 @@ import {
     RegisterLink,
 } from './styles';
 
-import ForgotModal from '../../components/ForgotModal'
+import ForgotModal from '../../components/ForgotModal';
 
 const login = ({ navigation }) => {
     const { signIn } = useAuth();
@@ -44,16 +44,19 @@ const login = ({ navigation }) => {
 
     async function storeLogin() {
         setIsLoading(true);
-        const userData = { email: user, password };
-        if (user === '' && password === '') {
-            setIsLoading(false);
-            return;
-        }
-        const response = await signIn(userData);
+        try {
+            const userData = { email: user, password };
+            if (user === '' && password === '') {
+                setIsLoading(false);
+                return;
+            }
+            const response = await signIn(userData);
 
-        if (response) {
-            updateErrors(response);
-        }
+            if (response) {
+                updateErrors(response);
+            }
+        } catch (e) {}
+
         setIsLoading(false);
     }
 
@@ -61,12 +64,12 @@ const login = ({ navigation }) => {
         <KeyboardAvoidingView
             enabled={Platform.OS === 'ios'}
             behavior="padding">
-            
             <Container>
                 <ForgotModal
                     isVisible={isModalVisible}
                     onSwipeComplete={() => setIsModalVisible(false)}
-                    swipeDirection="down" />
+                    swipeDirection="down"
+                />
                 <StatusBar
                     barStyle="dark-content"
                     translucent
@@ -120,8 +123,7 @@ const login = ({ navigation }) => {
                                 </LoginButton>
                             </Form>
 
-                            <ForgotLink
-                                onPress={() => setIsModalVisible(true)}>
+                            <ForgotLink onPress={() => setIsModalVisible(true)}>
                                 <ForgotLabel>
                                     ¿Olvidaste tu contraseña?
                                 </ForgotLabel>

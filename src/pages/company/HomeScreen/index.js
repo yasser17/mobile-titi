@@ -16,6 +16,7 @@ import {
     CoverImageFile,
 } from './styles';
 import { usePublication } from '../../../context/publication';
+import { useBussiness } from '../../../context/bussiness';
 
 const HomeScreen = ({ route, navigation }) => {
     const [isEditing, setIsEditing] = useState(true);
@@ -26,11 +27,13 @@ const HomeScreen = ({ route, navigation }) => {
     const [feed, setFeed] = useState([]);
     const [refreshing, setRefreshing] = useState(true);
     const { updatePublication } = usePublication();
+    const { updateBussiness } = useBussiness();
 
     let { companyId, company } = route.params;
 
     useEffect(() => {
         setComp(company);
+        updateBussiness(company);
         updatePublication({ company_id: company.id });
     }, [company]);
 
