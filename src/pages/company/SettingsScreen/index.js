@@ -53,7 +53,13 @@ const SettingsScreen = () => {
             phone,
             currency_id: currencyId,
         });
-        api.patch(`/bussiness/${bussiness.id}`)
+        api.patch(`/bussiness/${bussiness.id}`, {
+            name,
+            details,
+            email,
+            phone,
+            currency_id: currencyId,
+        })
             .then(() => {
                 Toast.show({
                     text1: 'Datos guardados!',

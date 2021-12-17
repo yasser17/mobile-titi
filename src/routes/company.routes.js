@@ -4,10 +4,10 @@ import React from 'react';
 
 import HomeScreen from '../pages/company/HomeScreen';
 import MessagesScreen from '../pages/company/MessagesScreen';
-import ShoppingScreen from '../pages/company/ShoppingScreen';
+import ShoppingScreen from '../pages/company/ShoppingScreen/HomeShoppingScreen';
 import CamaraScreen from '../pages/company/PublicationScreen/CamaraScreen';
 import DetailScreen from '../pages/company/PublicationScreen/DetailsScreen';
-import SettingsScreen from '../pages/company/SettingsScreen';
+import SettingsScreen from '../pages/company/ShoppingScreen/HomeShoppingScreen';
 import ChatScreen from '../pages/company/ChatScreen';
 import { PublicationProvider } from '../context/publication';
 
@@ -38,6 +38,17 @@ const PublicationRoutes = () => {
             <StackP.Screen name="CamaraScreen" component={CamaraScreen} />
             <StackP.Screen name="DetailScreen" component={DetailScreen} />
         </StackP.Navigator>
+    );
+};
+
+
+const StackS = createStackNavigator();
+
+const ShoppingRoutes = () => {
+    return (
+        <StackS.Navigator headerMode="none">
+            <StackS.Screen name="ShoppingHome" component={ShoppingScreen} />
+        </StackS.Navigator>
     );
 };
 
@@ -75,7 +86,7 @@ const CompanyRoutes = () => {
                     },
                 })}>
                 <Tab.Screen name="HomeScreen" component={HomeScreen} />
-                <Tab.Screen name="ShoppingScreen" component={ShoppingScreen} />
+                <Tab.Screen name="ShoppingScreen" component={ShoppingRoutes} />
                 <Tab.Screen
                     name="PublicationScreen"
                     component={PublicationRoutes}
